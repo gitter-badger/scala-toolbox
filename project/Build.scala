@@ -15,8 +15,17 @@ object ScalatoolboxBuild extends Build {
         "org.specs2" %% "specs2" % "1.14" % "test",
         "org.mockito" % "mockito-all" % "1.9.0" % "test",
         "org.clapper" %% "grizzled-slf4j" % "1.0.1"
-      )
-      // add other settings here
+      ),
+      publish
     )
   )
+
+  def publish = publishTo <<= (version) {
+    version: String =>
+      if (version.trim.endsWith("SNAPSHOT")) {
+        Some(Resolver.file("snaphost", new File("./repos/snapshot")))
+      } else {
+        Some(Resolver.file("release", new File("./repos/release")))
+      }
+  }
 }
