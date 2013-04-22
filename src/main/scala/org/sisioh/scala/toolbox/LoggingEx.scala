@@ -18,6 +18,10 @@ trait LoggingEx extends Logging {
   val debugSingle: (=> Any) => Unit = debug _
   val debugDouble: (=> Any, => Throwable) => Unit = debug _
 
+  val isInfoFlag: Boolean = isInfoEnabled
+  val isWarnFlag: Boolean = isWarnEnabled
+  val isErrorFlag: Boolean = isErrorEnabled
+  val isDebugFlag: Boolean = isDebugEnabled
 
   private val msgs = new DynamicVariable[Seq[Any]](immutable.Queue.empty)
 
@@ -63,7 +67,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withInfoScope[T](msg: => Any)(f: => T): T = if (isInfoEnabled) withScope(msg, infoSingle, f) else f
+  def withInfoScope[T](msg: => Any)(f: => T): T = if (isInfoFlag) withScope(msg, infoSingle, f) else f
 
   /**
    * INFOレベルのスコープを作成する。
@@ -74,7 +78,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withInfoScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isInfoEnabled) withScope(msg, t, infoDouble, f) else f
+  def withInfoScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isInfoFlag) withScope(msg, t, infoDouble, f) else f
 
   /**
    * WARNレベルのスコープを作成する。
@@ -84,7 +88,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withWarnScope[T](msg: => Any)(f: => T): T = if (isWarnEnabled) withScope(msg, warnSingle, f) else f
+  def withWarnScope[T](msg: => Any)(f: => T): T = if (isWarnFlag) withScope(msg, warnSingle, f) else f
 
   /**
    * WARNレベルのスコープを作成する。
@@ -95,7 +99,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withWarnScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isWarnEnabled) withScope(msg, t, warnDouble, f) else f
+  def withWarnScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isWarnFlag) withScope(msg, t, warnDouble, f) else f
 
   /**
    * ERRレベルのスコープを作成する。
@@ -105,7 +109,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withErrorScope[T](msg: => Any)(f: => T): T = if (isErrorEnabled) withScope(msg, errorSingle, f) else f
+  def withErrorScope[T](msg: => Any)(f: => T): T = if (isErrorFlag) withScope(msg, errorSingle, f) else f
 
   /**
    * ERRレベルのスコープを作成する。
@@ -116,7 +120,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withErrorScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isErrorEnabled) withScope(msg, t, errorDouble, f) else f
+  def withErrorScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isErrorFlag) withScope(msg, t, errorDouble, f) else f
 
   /**
    * DEBUGレベルのスコープを作成する。
@@ -126,7 +130,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withDebugScope[T](msg: => Any)(f: => T): T = if (isDebugEnabled) withScope(msg, debugSingle, f) else f
+  def withDebugScope[T](msg: => Any)(f: => T): T = if (isDebugFlag) withScope(msg, debugSingle, f) else f
 
   /**
    * DEBUGレベルのスコープを作成する。
@@ -137,7 +141,7 @@ trait LoggingEx extends Logging {
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
    */
-  def withDebugScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isDebugEnabled) withScope(msg, t, debugDouble, f) else f
+  def withDebugScope[T](msg: => Any, t: => Throwable)(f: => T): T = if (isDebugFlag) withScope(msg, t, debugDouble, f) else f
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
