@@ -23,10 +23,10 @@ trait LoggingEx extends Logging {
   val isErrorFlag: Boolean = isErrorEnabled
   val isDebugFlag: Boolean = isDebugEnabled
 
-  private val msgs = new DynamicVariable[Seq[Any]](immutable.Queue.empty)
+  private val msgs = new DynamicVariable[Seq[String]](immutable.Queue.empty)
 
   private def withScope[T](msg: => Any, logger: (=> Any) => Unit, f: => T): T = {
-    val newMsgs = msgs.value :+ msg
+    val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger("%s : start".format(str))
     val r = msgs.withValue(newMsgs) {
@@ -37,7 +37,7 @@ trait LoggingEx extends Logging {
   }
 
   private def withScope[T](msg: => Any, t: => Throwable, logger: (=> Any, => Throwable) => Unit, f: => T): T = {
-    val newMsgs = msgs.value :+ msg
+    val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger("%s : start".format(str), t)
     val r = msgs.withValue(newMsgs) {
@@ -48,13 +48,13 @@ trait LoggingEx extends Logging {
   }
 
   private def scoped[T](msg: => Any, logger: (=> Any) => Unit) {
-    val newMsgs = msgs.value :+ msg
+    val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger(str)
   }
 
   private def scoped[T](msg: => Any, t: => Throwable, logger: (=> Any, => Throwable) => Unit) {
-    val newMsgs = msgs.value :+ msg
+    val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger(str, t)
   }
@@ -131,6 +131,7 @@ trait LoggingEx extends Logging {
    * @return 関数の戻り値
    */
   def withDebugScope[T](msg: => Any)(f: => T): T = if (isDebugFlag) withScope(msg, debugSingle, f) else f
+
 
   /**
    * DEBUGレベルのスコープを作成する。
