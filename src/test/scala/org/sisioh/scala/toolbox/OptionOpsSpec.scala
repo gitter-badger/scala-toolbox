@@ -6,8 +6,8 @@ class OptionOpsSpec extends Specification {
 
   import OptionOps._
 
-  "Option type" should {
-    "be Try type" in {
+  "Option" should {
+    "convert to Try" in {
       val intSomeOp: Option[Int] = Some(1)
       intSomeOp.toTry.isSuccess must beTrue
       intSomeOp.toTry.get must_== 1
