@@ -14,6 +14,8 @@ object ScalatoolboxBuild extends Build {
       libraryDependencies ++= Seq(
         "org.specs2" %% "specs2" % "1.14" % "test",
         "org.mockito" % "mockito-all" % "1.9.0" % "test",
+        "org.slf4j" % "slf4j-api" % "1.7.1",
+        "ch.qos.logback" % "logback-classic" % "1.0.7" % "test",
         "org.clapper" %% "grizzled-slf4j" % "1.0.1"
       ),
       publish
