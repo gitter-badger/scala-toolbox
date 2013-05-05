@@ -12,9 +12,8 @@ object OptionOps {
    *
    * @param option 変換元の[[scala.Option]]
    * @tparam A Optionの要素型
-   * @return `scala.util.Try`
    */
-  implicit def convertToTry[A](option: Option[A]) = new {
+  implicit class RichOption[A](val option: Option[A]) extends AnyVal {
     def toTry: Try[A] = toTry(new NoSuchElementException)
 
     def toTry(throwable: scala.Throwable): Try[A] =
