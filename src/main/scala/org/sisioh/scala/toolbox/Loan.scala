@@ -2,7 +2,7 @@ package org.sisioh.scala.toolbox
 
 import scala.util._
 import scala.util.control.NonFatal
-
+import scala.language.reflectiveCalls
 
 object Loan {
 

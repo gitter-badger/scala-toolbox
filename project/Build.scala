@@ -9,7 +9,7 @@ object ScalatoolboxBuild extends Build {
     settings = Project.defaultSettings ++ Seq(
       name := "scala-toolbox",
       organization := "org.sisioh",
-      version := "0.0.3",
+      version := "0.0.4",
       scalaVersion := "2.10.1",
       libraryDependencies ++= Seq(
         "org.specs2" %% "specs2" % "1.14" % "test",
@@ -18,6 +18,7 @@ object ScalatoolboxBuild extends Build {
         "ch.qos.logback" % "logback-classic" % "1.0.7" % "test",
         "org.clapper" %% "grizzled-slf4j" % "1.0.1"
       ),
+      scalacOptions := Seq("-feature",  "-unchecked",  "-deprecation"),
       publish
     )
   )
