@@ -18,6 +18,7 @@ object ScalatoolboxBuild extends Build {
         "ch.qos.logback" % "logback-classic" % "1.0.7" % "test",
         "org.clapper" %% "grizzled-slf4j" % "1.0.1"
       ),
+      scalacOptions := Seq("-feature",  "-unchecked",  "-deprecation"),
       publish
     )
   )

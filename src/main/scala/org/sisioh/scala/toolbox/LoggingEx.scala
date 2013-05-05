@@ -30,10 +30,10 @@ trait LoggingEx extends Logging {
     th => msg => debug(msg, th)
   }
 
-  val isInfoFlag: Boolean = isInfoEnabled
-  val isWarnFlag: Boolean = isWarnEnabled
-  val isErrorFlag: Boolean = isErrorEnabled
-  val isDebugFlag: Boolean = isDebugEnabled
+  private[toolbox] val isInfoFlag: Boolean = isInfoEnabled
+  private[toolbox] val isWarnFlag: Boolean = isWarnEnabled
+  private[toolbox] val isErrorFlag: Boolean = isErrorEnabled
+  private[toolbox] val isDebugFlag: Boolean = isDebugEnabled
 
   private val msgs = new DynamicVariable[Seq[String]](immutable.Queue.empty)
 
@@ -68,7 +68,7 @@ trait LoggingEx extends Logging {
    * INFOレベルのスコープを作成する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    * @param f 関数
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
@@ -89,7 +89,7 @@ trait LoggingEx extends Logging {
    * WARNレベルのスコープを作成する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    * @param f 関数
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
@@ -110,7 +110,7 @@ trait LoggingEx extends Logging {
    * ERRレベルのスコープを作成する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    * @param f 関数
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
@@ -132,7 +132,7 @@ trait LoggingEx extends Logging {
    * DEBUGレベルのスコープを作成する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    * @param f 関数
    * @tparam T 関数の戻り値の型
    * @return 関数の戻り値
@@ -151,7 +151,7 @@ trait LoggingEx extends Logging {
    * スコープ内にINFOレベルのメッセージを出力する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    */
   def scopedInfo(msg: => Any, t: => Throwable): Unit =
     if (isInfoFlag) scoped(msg, infoDouble(t))
@@ -168,7 +168,7 @@ trait LoggingEx extends Logging {
    * スコープ内にINFOレベルのメッセージを出力する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    */
   def scopedWarn(msg: => Any, t: => Throwable): Unit =
     if (isWarnFlag) scoped(msg, warnDouble(t))
@@ -185,7 +185,7 @@ trait LoggingEx extends Logging {
    * スコープ内にINFOレベルのメッセージを出力する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    */
   def scopedError(msg: => Any, t: => Throwable): Unit =
     if (isErrorFlag) scoped(msg, errorDouble(t))
@@ -202,7 +202,7 @@ trait LoggingEx extends Logging {
    * スコープ内にINFOレベルのメッセージを出力する。
    *
    * @param msg メッセージ
-   * @param t [[java.lang.Throwable]]
+   * @param t `scala.Throwable`
    */
   def scopedDebug(msg: => Any, t: => Throwable): Unit =
     if (isDebugFlag) scoped(msg, debugDouble(t))
