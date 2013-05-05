@@ -9,7 +9,7 @@ scala-toolbox
   ),
   libraryDependencies ++= Seq(
     // ...
-    "org.sisioh" %% "scala-toolbox" % "0.0.3",
+    "org.sisioh" %% "scala-toolbox" % "0.0.4",
     // ...
   ),
 ```
