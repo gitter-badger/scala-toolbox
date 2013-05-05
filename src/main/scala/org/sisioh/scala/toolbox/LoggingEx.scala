@@ -9,14 +9,22 @@ import grizzled.slf4j.Logging
  */
 trait LoggingEx extends Logging {
 
-  val infoSingle: (=> Any) => Unit = info _
-  val infoDouble: (=> Any, => Throwable) => Unit = info _
-  val warnSingle: (=> Any) => Unit = warn _
-  val warnDouble: (=> Any, => Throwable) => Unit = warn _
-  val errorSingle: (=> Any) => Unit = error _
-  val errorDouble: (=> Any, => Throwable) => Unit = error _
-  val debugSingle: (=> Any) => Unit = debug _
-  val debugDouble: (=> Any, => Throwable) => Unit = debug _
+  private[toolbox] val infoSingle: (Any) => Unit = info(_)
+  private[toolbox] val infoDouble: (Any, Throwable) => Unit = {
+    (msg, th) => info(msg, th)
+  }
+  private[toolbox] val warnSingle: (Any) => Unit = warn(_)
+  private[toolbox] val warnDouble: (Any, Throwable) => Unit = {
+    (msg, th) => warn(msg, th)
+  }
+  private[toolbox] val errorSingle: (Any) => Unit = error(_)
+  private[toolbox] val errorDouble: (Any, Throwable) => Unit = {
+    (msg, th) => error(msg, th)
+  }
+  private[toolbox] val debugSingle: (Any) => Unit = debug(_)
+  private[toolbox] val debugDouble: (Any, Throwable) => Unit = {
+    (msg, th) => debug(msg, th)
+  }
 
   val isInfoFlag: Boolean = isInfoEnabled
   val isWarnFlag: Boolean = isWarnEnabled
@@ -25,7 +33,7 @@ trait LoggingEx extends Logging {
 
   private val msgs = new DynamicVariable[Seq[String]](immutable.Queue.empty)
 
-  private def withScope[T](msg: => Any, logger: (=> Any) => Unit, f: => T): T = {
+  private def withScope[T](msg: => Any, logger: (Any) => Unit, f: => T): T = {
     val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger("%s : start".format(str))
@@ -36,7 +44,7 @@ trait LoggingEx extends Logging {
     r
   }
 
-  private def withScope[T](msg: => Any, t: => Throwable, logger: (=> Any, => Throwable) => Unit, f: => T): T = {
+  private def withScope[T](msg: => Any, t: => Throwable, logger: (Any, Throwable) => Unit, f: => T): T = {
     val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger("%s : start".format(str), t)
@@ -47,13 +55,13 @@ trait LoggingEx extends Logging {
     r
   }
 
-  private def scoped[T](msg: => Any, logger: (=> Any) => Unit) {
+  private def scoped[T](msg: => Any, logger: (Any) => Unit) {
     val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger(str)
   }
 
-  private def scoped[T](msg: => Any, t: => Throwable, logger: (=> Any, => Throwable) => Unit) {
+  private def scoped[T](msg: => Any, t: => Throwable, logger: (Any, Throwable) => Unit) {
     val newMsgs = msgs.value :+ msg.toString
     val str = newMsgs.mkString(" : ")
     logger(str, t)
@@ -150,7 +158,7 @@ trait LoggingEx extends Logging {
    * @param msg メッセージ
    */
   def scopedInfo(msg: => Any): Unit =
-    if (isInfoEnabled) scoped(msg, info _)
+    if (isInfoFlag) scoped(msg, infoSingle)
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
@@ -159,7 +167,7 @@ trait LoggingEx extends Logging {
    * @param t [[java.lang.Throwable]]
    */
   def scopedInfo(msg: => Any, t: => Throwable): Unit =
-    if (isInfoEnabled) scoped(msg, t, info _)
+    if (isInfoFlag) scoped(msg, t, infoDouble)
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
@@ -167,7 +175,7 @@ trait LoggingEx extends Logging {
    * @param msg メッセージ
    */
   def scopedWarn(msg: => Any): Unit =
-    if (isWarnEnabled) scoped(msg, warn _)
+    if (isWarnFlag) scoped(msg, warnSingle)
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
@@ -176,7 +184,7 @@ trait LoggingEx extends Logging {
    * @param t [[java.lang.Throwable]]
    */
   def scopedWarn(msg: => Any, t: => Throwable): Unit =
-    if (isWarnEnabled) scoped(msg, t, warn _)
+    if (isWarnFlag) scoped(msg, t, warnDouble)
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
@@ -184,7 +192,7 @@ trait LoggingEx extends Logging {
    * @param msg メッセージ
    */
   def scopedError(msg: => Any): Unit =
-    if (isErrorEnabled) scoped(msg, error _)
+    if (isErrorFlag) scoped(msg, errorSingle)
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
@@ -193,7 +201,7 @@ trait LoggingEx extends Logging {
    * @param t [[java.lang.Throwable]]
    */
   def scopedError(msg: => Any, t: => Throwable): Unit =
-    if (isErrorEnabled) scoped(msg, t, error _)
+    if (isErrorFlag) scoped(msg, t, errorDouble)
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
@@ -201,7 +209,7 @@ trait LoggingEx extends Logging {
    * @param msg メッセージ
    */
   def scopedDebug(msg: => Any): Unit =
-    if (isDebugEnabled) scoped(msg, debug _)
+    if (isDebugFlag) scoped(msg, debugSingle)
 
   /**
    * スコープ内にINFOレベルのメッセージを出力する。
@@ -210,6 +218,6 @@ trait LoggingEx extends Logging {
    * @param t [[java.lang.Throwable]]
    */
   def scopedDebug(msg: => Any, t: => Throwable): Unit =
-    if (isDebugEnabled) scoped(msg, t, debug _)
+    if (isDebugFlag) scoped(msg, t, debugDouble)
 
 }
