@@ -34,7 +34,7 @@ trait EnumEntry extends Serializable with Ordered[EnumEntry] {
  *
  * @author j5ik2o
  */
-class DeclareEntry[T <: EnumEntry](enum: AbstractEnum[T]) {
+class DeclareEntry[T <: EnumEntry](enum: Enum[T]) {
 
   def %(value: T) = andThen(value)
 
@@ -49,7 +49,7 @@ class DeclareEntry[T <: EnumEntry](enum: AbstractEnum[T]) {
  *
  * @author j5ik2o
  */
-trait AbstractEnum[T <: EnumEntry] extends Serializable {
+trait Enum[T <: EnumEntry] extends Serializable {
   private var counter: Int = _
   private val enums = ListBuffer.empty[T]
 
