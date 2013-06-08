@@ -1,4 +1,4 @@
-package org.sisih.scala.toolbox
+package org.sisioh.scala.toolbox
 
 import collection.mutable.ListBuffer
 import scala.language.implicitConversions
@@ -61,6 +61,12 @@ trait Enum[T <: EnumEntry] extends Serializable {
     enums += value
   }
 
+  /**
+   * 列挙型定数を定義するためのメソッド。
+   *
+   * @param value 列挙型定数
+   * @return [[org.sisioh.scala.toolbox.DeclareEntry]]
+   */
   def declared(value: T): DeclareEntry[T] = {
     appendValue(value)
     new DeclareEntry(this)
