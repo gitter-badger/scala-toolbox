@@ -9,7 +9,7 @@ object ScalatoolboxBuild extends Build {
     settings = Project.defaultSettings ++ Seq(
       name := "scala-toolbox",
       organization := "org.sisioh",
-      version := "0.0.5-1",
+      version := "0.0.6",
       scalaVersion := "2.10.1",
       libraryDependencies ++= Seq(
         "org.specs2" %% "specs2" % "1.14" % "test",
