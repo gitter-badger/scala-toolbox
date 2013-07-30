@@ -9,7 +9,7 @@ object ScalatoolboxBuild extends Build {
     settings = Project.defaultSettings ++ Seq(
       name := "scala-toolbox",
       organization := "org.sisioh",
-      version := "0.0.6",
+      version := "0.0.7-SNAPSHOT",
       scalaVersion := "2.10.1",
       libraryDependencies ++= Seq(
         "org.specs2" %% "specs2" % "1.14" % "test",
@@ -19,16 +19,41 @@ object ScalatoolboxBuild extends Build {
         "org.clapper" %% "grizzled-slf4j" % "1.0.1"
       ),
       scalacOptions := Seq("-feature",  "-unchecked",  "-deprecation"),
-      publish
+      publishMavenStyle := true,
+      publishArtifact in Test := false,
+      pomIncludeRepository := {
+        _ => false
+      },
+      publishTo <<= version {
+        (v: String) =>
+          val nexus = "https://oss.sonatype.org/"
+          if (v.trim.endsWith("SNAPSHOT"))
+            Some("snapshots" at nexus + "content/repositories/snapshots")
+          else
+            Some("releases" at nexus + "service/local/staging/deploy/maven2")
+      },
+      pomExtra := (
+        <url>https://github.com/sisioh/sisioh-dddbase</url>
+          <licenses>
+            <license>
+              <name>Apache License Version 2.0</name>
+              <url>http://www.apache.org/licenses/</url>
+              <distribution>repo</distribution>
+            </license>
+          </licenses>
+          <scm>
+            <url>git@github.com:sisioh/sisioh-dddbase.git</url>
+            <connection>scm:git:git@github.com:sisioh/sisioh-dddbase.git</connection>
+          </scm>
+          <developers>
+            <developer>
+              <id>j5ik2o</id>
+              <name>Junichi Kato</name>
+              <url>http://j5ik2o.me</url>
+            </developer>
+          </developers>
+        )
     )
   )
 
-  def publish = publishTo <<= (version) {
-    version: String =>
-      if (version.trim.endsWith("SNAPSHOT")) {
-        Some(Resolver.file("snaphost", new File("./repos/snapshot")))
-      } else {
-        Some(Resolver.file("release", new File("./repos/release")))
-      }
-  }
 }
