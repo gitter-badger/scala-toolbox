@@ -42,8 +42,8 @@ object ScalatoolboxBuild extends Build {
             </license>
           </licenses>
           <scm>
-            <url>git@github.com:sisioh/sisioh-dddbase.git</url>
-            <connection>scm:git:git@github.com:sisioh/sisioh-dddbase.git</connection>
+            <url>git@github.com:sisioh/sisioh-toolbox.git</url>
+            <connection>scm:git:git@github.com:sisioh/sisioh-toolbox.git</connection>
           </scm>
           <developers>
             <developer>
