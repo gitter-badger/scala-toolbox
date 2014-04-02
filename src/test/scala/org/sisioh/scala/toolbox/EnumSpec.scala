@@ -2,22 +2,25 @@ package org.sisioh.scala.toolbox
 
 import org.specs2.mutable.Specification
 
-sealed trait Fruit extends EnumEntry
+sealed trait FruitEntry extends EnumEntry
 
-object Fruit extends Enum[Fruit] {
+class Fruit extends Enum[FruitEntry] {
 
-  case object Apple extends Fruit
+  case object Apple extends FruitEntry
 
-  case object Banana extends Fruit
+  case object Banana extends FruitEntry
 
-  Apple % Banana
+  val values = defineValues(Apple, Banana)
 
 }
+
+object Fruit extends Fruit
 
 class EnumSpec extends Specification {
 
   "enum" should {
     "not equal each values" in {
+      println(Fruit.Apple, Fruit.Banana)
       Fruit.Apple must_!= Fruit.Banana
     }
     "have apple as first element" in {
@@ -31,8 +34,8 @@ class EnumSpec extends Specification {
       Fruit("Banana") must_== Fruit.Banana
     }
     "get enum value by ordinal" in {
-      Fruit(1) must_== Fruit.Apple
-      Fruit(2) must_== Fruit.Banana
+      Fruit(0) must_== Fruit.Apple
+      Fruit(1) must_== Fruit.Banana
     }
   }
 
