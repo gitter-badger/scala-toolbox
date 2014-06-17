@@ -10,13 +10,14 @@ object ScalatoolboxBuild extends Build {
       name := "scala-toolbox",
       organization := "org.sisioh",
       version := "0.0.9-SNAPSHOT",
-      scalaVersion := "2.10.3",
+      scalaVersion := "2.11.0",
+      crossScalaVersions := Seq("2.11.0", "2.10.4"),
       libraryDependencies ++= Seq(
-        "org.specs2" %% "specs2" % "2.0" % "test",
+        "org.specs2" %% "specs2" % "2.3.12" % "test",
         "org.mockito" % "mockito-all" % "1.9.0" % "test",
         "ch.qos.logback" % "logback-classic" % "1.0.7" % "test",
         "org.slf4j" % "slf4j-api" % "1.7.1",
-        "org.clapper" %% "grizzled-slf4j" % "1.0.1"
+        "org.clapper" %% "grizzled-slf4j" % "1.0.2"
       ),
       scalacOptions := Seq("-feature",  "-unchecked",  "-deprecation"),
       publishMavenStyle := true,
