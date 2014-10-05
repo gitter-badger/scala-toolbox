@@ -34,7 +34,7 @@ object ScalatoolboxBuild extends Build {
             Some("releases" at nexus + "service/local/staging/deploy/maven2")
       },
       pomExtra := (
-        <url>https://github.com/sisioh/sisioh-dddbase</url>
+        <url>https://github.com/sisioh/sisioh-toolbox</url>
           <licenses>
             <license>
               <name>Apache License Version 2.0</name>
