@@ -1,6 +1,8 @@
 scala-toolbox
 =============
 
+[![Join the chat at https://gitter.im/sisioh/scala-toolbox](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sisioh/scala-toolbox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/sisioh/scala-toolbox.png?branch=develop)](https://travis-ci.org/sisioh/scala-toolbox)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.sisioh/scala-toolbox_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.sisioh/scala-toolbox_2.11)
 [![Scaladoc](http://javadoc-badge.appspot.com/org.sisioh/scala-toolbox.svg?label=scaladoc)](http://javadoc-badge.appspot.com/org.sisioh/scala-toolbox_2.11)
