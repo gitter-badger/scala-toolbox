@@ -1,6 +1,12 @@
 scala-toolbox
 =============
 
+[![Build Status](https://travis-ci.org/sisioh/scala-toolbox.png?branch=develop)](https://travis-ci.org/sisioh/scala-toolbox)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.sisioh/scala-toolbox_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.sisioh/scala-toolbox_2.11)
+[![Scaladoc](http://javadoc-badge.appspot.com/org.sisioh/scala-toolbox.svg?label=scaladoc)](http://javadoc-badge.appspot.com/org.sisioh/scala-toolbox_2.11)
+[![Reference Status](https://www.versioneye.com/java/org.sisioh:scala-toolbox_2.11/reference_badge.svg?style=flat)](https://www.versioneye.com/java/org.sisioh:scala-toolbox_2.11/references)
+
+
 ## Installation
 
 Add the following to your sbt build (Scala 2.10.x, and Scala 2.11.x):
